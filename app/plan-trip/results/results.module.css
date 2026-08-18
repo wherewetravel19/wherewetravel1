@@ -1,0 +1,65 @@
+.header {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto 40px;
+}
+.successIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #eafaf0;
+  color: #2ecc71;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+.header h1 {
+  color: var(--navy);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.header p {
+  color: var(--muted);
+}
+
+.summaryCard {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  border: 1px solid var(--border);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.row:last-child {
+  border-bottom: none;
+}
+.row span {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.row strong {
+  color: var(--navy);
+  text-align: right;
+  font-size: 0.95rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}

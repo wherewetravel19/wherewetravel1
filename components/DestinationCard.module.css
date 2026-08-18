@@ -1,0 +1,77 @@
+.card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--border);
+  transition: 0.3s;
+  position: relative;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -15px rgba(15, 61, 92, 0.25);
+}
+
+.imgWrap {
+  position: relative;
+  height: 190px;
+  width: 100%;
+}
+
+.rating {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 5px 11px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--navy);
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: 0.2s;
+  z-index: 3;
+}
+.heart:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.heart.saved {
+  color: var(--accent);
+}
+
+.info {
+  padding: 16px;
+}
+.info h3 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.info p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.price {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.price span {
+  color: var(--accent-dark);
+}

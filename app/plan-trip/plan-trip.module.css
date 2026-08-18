@@ -1,0 +1,45 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.stepsExplainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stepItem {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.stepNum {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.stepItem h3 {
+  color: var(--navy);
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+.stepItem p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

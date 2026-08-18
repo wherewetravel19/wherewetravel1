@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where we Travel — Plan Smarter. Travel Better.</title>
+<meta name="description" content="Where we Travel is an AI-powered trip planning platform: smart budgets, matched destinations, and real deals on flights and hotels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET / BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0f3d5c;
+  --navy-700:#134a6e;
+  --navy-900:#0a2c43;
+  --accent:#e8955f;
+  --accent-600:#d97f45;
+  --accent-100:#fbe7d6;
+  --white:#ffffff;
+  --ink:#1a1a1a;
+  --ink-soft:#5c6670;
+  --ink-faint:#8b95a1;
+  --line:#e6e9ed;
+  --surface:#f6f8fa;
+  --error:#c1483f;
+  --r-sm:10px;
+  --r-md:16px;
+  --r-lg:24px;
+  --shadow-sm:0 2px 10px rgba(15,61,92,.07);
+  --shadow-md:0 14px 34px rgba(15,61,92,.13);
+  --shadow-lg:0 30px 70px rgba(15,61,92,.20);
+  --nav-h:76px;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);line-height:1.15;letter-spacing:-.01em;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+img{max-width:100%;display:block;}
+ul{list-style:none;}
+input,select{font-family:inherit;font-size:1rem;color:var(--ink);}
+.container{max-width:1240px;margin:0 auto;padding:0 32px;}
+section{scroll-margin-top:calc(var(--nav-h) + 12px);}
+:focus-visible{outline:2px solid var(--accent-600);outline-offset:3px;border-radius:4px;}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.icon-fill{fill:currentColor;stroke:none;}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+}
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+.reveal-delay-1.in-view{transition-delay:.08s;}
+.reveal-delay-2.in-view{transition-delay:.16s;}
+.reveal-delay-3.in-view{transition-delay:.24s;}
+.reveal-delay-4.in-view{transition-delay:.32s;}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:14px;font-weight:700;font-size:.95rem;border:1.5px solid transparent;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--navy);color:var(--white);}
+.btn-primary:hover{background:var(--navy-700);box-shadow:var(--shadow-sm);}
+.btn-accent{background:var(--accent);color:var(--white);}
+.btn-accent:hover{background:var(--accent-600);box-shadow:0 12px 26px rgba(232,149,95,.35);}
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--navy);}
+.btn-text{background:none;color:var(--navy);font-weight:700;padding:8px 0;border-bottom:1.5px solid var(--navy);border-radius:0;}
+.btn-text:hover{color:var(--accent-600);border-color:var(--accent-600);}
+.btn-block{width:100%;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
+
+/* ============ NAVBAR ============ */
+.navbar{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:200;display:flex;align-items:center;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);transition:box-shadow .3s ease,border-color .3s ease;border-bottom:1px solid transparent;}
+.navbar.scrolled{box-shadow:0 2px 20px rgba(15,61,92,.08);border-color:var(--line);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.15rem;color:var(--navy);}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,var(--navy),var(--navy-700));display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;}
+.logo span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:38px;}
+.nav-links a{font-size:.95rem;font-weight:600;color:var(--ink-soft);transition:color .2s ease;position:relative;}
+.nav-links a:hover{color:var(--navy);}
+.nav-actions{display:flex;align-items:center;gap:12px;}
+.nav-actions .btn{padding:11px 22px;}
+.hamburger{display:none;width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--white);align-items:center;justify-content:center;color:var(--navy);}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:var(--white);z-index:190;padding:28px 32px;flex-direction:column;gap:6px;overflow-y:auto;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{padding:16px 4px;font-size:1.05rem;font-weight:700;color:var(--navy);border-bottom:1px solid var(--line);}
+.mobile-menu .nav-actions{flex-direction:column;margin-top:18px;gap:12px;}
+.mobile-menu .nav-actions .btn{width:100%;}
+
+/* ============ HERO ============ */
+.hero{padding:calc(var(--nav-h) + 64px) 0 80px;position:relative;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-100);color:var(--accent-600);font-weight:700;font-size:.82rem;padding:9px 16px;border-radius:100px;margin-bottom:22px;}
+.hero h1{font-size:clamp(2.4rem,4.6vw,3.6rem);font-weight:800;margin-bottom:20px;}
+.hero h1 .line-accent{color:var(--accent);display:block;}
+.hero h1 .line-navy{display:block;}
+.hero-lede{color:var(--ink-soft);font-size:1.08rem;max-width:480px;margin-bottom:34px;}
+.hero-features{display:grid;grid-template-columns:repeat(2,auto);gap:18px 34px;}
+.hero-feature{display:flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem;color:var(--navy);}
+.hero-feature .icon-circle{width:34px;height:34px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--navy);}
+.hero-feature:nth-child(2) .icon-circle{color:var(--accent-600);}
+.hero-feature:nth-child(3) .icon-circle{color:var(--navy);}
+.hero-feature:nth-child(4) .icon-circle{color:var(--accent-600);}
+
+.hero-visual{position:relative;}
+.hero-visual .frame{position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/4.6;}
+.hero-visual .frame img{width:100%;height:100%;object-fit:cover;}
+.hero-visual .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,61,92,0) 55%,rgba(10,44,67,.55) 100%);}
+.float-card{position:absolute;left:-24px;bottom:34px;background:var(--white);border-radius:var(--r-md);box-shadow:var(--shadow-md);padding:16px 20px;display:flex;align-items:center;gap:12px;z-index:2;animation:bob 5s ease-in-out infinite;}
+.float-card .stars{color:var(--accent);display:flex;gap:2px;}
+.float-card .stars .icon{width:14px;height:14px;}
+.float-card strong{display:block;font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:.95rem;}
+.float-card span{font-size:.78rem;color:var(--ink-soft);}
+.map-deco{position:absolute;top:-18px;right:8px;width:110px;height:110px;z-index:2;animation:bob 6s ease-in-out infinite .3s;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+/* ============ SEARCH BAR ============ */
+.search-wrap{margin-top:52px;}
+.search-bar{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:14px;display:grid;grid-template-columns:1.3fr 1fr 1fr .8fr auto;gap:6px;align-items:stretch;}
+.search-field{display:flex;flex-direction:column;gap:4px;padding:8px 18px;border-right:1px solid var(--line);}
+.search-bar .search-field:last-of-type{border-right:none;}
+.search-field label{font-size:.72rem;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em;}
+.search-field .field-row{display:flex;align-items:center;gap:8px;}
+.search-field .field-row .icon{color:var(--accent-600);width:18px;height:18px;}
+.search-field input{border:none;outline:none;width:100%;font-weight:600;color:var(--navy);background:transparent;font-size:.95rem;}
+.search-field input::placeholder{color:var(--ink-faint);font-weight:500;}
+.search-bar .btn{border-radius:12px;padding:0 30px;}
+
+/* ============ SECTION HEADERS ============ */
+.section{padding:96px 0;}
+.section.alt{background:var(--surface);}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;gap:24px;flex-wrap:wrap;}
+.eyebrow{color:var(--accent-600);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:block;}
+.section-head h2{font-size:clamp(1.8rem,3vw,2.4rem);}
+.section-head .view-all{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--navy);white-space:nowrap;}
+.section-head .view-all:hover{color:var(--accent-600);}
+.section-head .view-all .icon{width:16px;height:16px;transition:transform .2s ease;}
+.section-head .view-all:hover .icon{transform:translateX(3px);}
+
+/* ============ DESTINATIONS ============ */
+.dest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:26px;}
+.dest-card{background:var(--white);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--line);transition:transform .25s ease,box-shadow .25s ease;}
+.dest-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.dest-media{position:relative;aspect-ratio:3/3.6;overflow:hidden;}
+.dest-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.dest-card:hover .dest-media img{transform:scale(1.06);}
+.dest-rating{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);color:var(--navy);font-weight:700;font-size:.78rem;padding:6px 11px;border-radius:100px;display:flex;align-items:center;gap:4px;}
+.dest-rating .icon{width:13px;height:13px;color:var(--accent);}
+.save-btn{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);border:none;display:flex;align-items:center;justify-content:center;color:var(--navy);transition:transform .15s ease;}
+.save-btn:active{transform:scale(.9);}
+.save-btn .icon{width:17px;height:17px;}
+.save-btn.saved{color:var(--accent);}
+.save-btn.saved .icon{fill:var(--accent);stroke:var(--accent);}
+.dest-info{padding:18px 20px 20px;}
+.dest-info h3{font-size:1.1rem;font-weight:700;margin-bottom:2px;}
+.dest-info .country{color:var(--ink-soft);font-size:.85rem;margin-bottom:12px;}
+.dest-price{display:flex;align-items:baseline;gap:5px;font-size:.85rem;color:var(--ink-soft);}
+.dest-price strong{color:var(--accent-600);font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;}
+
+/* ============ FEATURES ============ */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;}
+.feature-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);padding:28px 24px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;}
+.feature-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:transparent;}
+.feature-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.feature-icon .icon{width:24px;height:24px;}
+.fi-1{background:#fdece0;color:var(--accent-600);}
+.fi-2{background:#e6edf1;color:var(--navy);}
+.fi-3{background:#eaf1ee;color:#3f7f6b;}
+.fi-4{background:#f4ece2;color:#b4813f;}
+.fi-5{background:#f1e7e6;color:#a1584f;}
+.feature-card h3{font-size:1.02rem;margin-bottom:8px;}
+.feature-card p{color:var(--ink-soft);font-size:.9rem;}
+
+/* ============ BUDGET PLANNER ============ */
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.budget-text h2{font-size:clamp(1.8rem,3vw,2.3rem);margin-bottom:18px;}
+.budget-text p{color:var(--ink-soft);margin-bottom:30px;max-width:460px;}
+.budget-actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
+.how-it-works{margin-top:26px;max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.how-it-works.open{max-height:220px;}
+.how-it-works ol{padding-left:2px;}
+.how-it-works li{position:relative;padding:10px 0 10px 30px;color:var(--ink-soft);font-size:.92rem;border-left:2px solid var(--line);margin-left:9px;}
+.how-it-works li::before{content:counter(step);counter-increment:step;position:absolute;left:-11px;top:8px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.how-it-works ol{counter-reset:step;}
+.how-it-works li:last-child{border-left-color:transparent;}
+
+.chart-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:32px;}
+.chart-card-head{margin-bottom:22px;}
+.chart-card-head .amount{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.6rem;font-weight:800;color:var(--navy);}
+.chart-card-head .meta{color:var(--ink-soft);font-size:.85rem;margin-top:2px;}
+.donut-wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+.donut-svg{width:170px;height:170px;flex-shrink:0;}
+.donut-svg circle{transition:stroke-dasharray 1s cubic-bezier(.4,0,.2,1);}
+.donut-track{stroke:var(--surface);}
+.donut-center-label{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;fill:var(--navy);font-size:15px;}
+.legend{flex:1;min-width:180px;display:flex;flex-direction:column;gap:12px;}
+.legend-row{display:flex;align-items:center;gap:10px;font-size:.86rem;}
+.legend-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0;}
+.legend-row .label{flex:1;color:var(--ink);font-weight:600;}
+.legend-row .amt{color:var(--ink-soft);}
+.legend-row .pct{color:var(--navy);font-weight:700;width:34px;text-align:right;}
+
+/* ============ STATS ============ */
+.stats-bar{padding:70px 0;background:var(--surface);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;}
+.stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,4vw,2.7rem);font-weight:800;color:var(--navy);}
+.stat-label{color:var(--ink-soft);font-weight:600;font-size:.9rem;margin-top:6px;}
+
+/* ============ TESTIMONIAL ============ */
+.testimonial-card{max-width:680px;margin:0 auto;text-align:center;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:56px 48px;}
+.testimonial-stars{display:flex;justify-content:center;gap:4px;color:var(--accent);margin-bottom:22px;}
+.testimonial-stars .icon{width:18px;height:18px;}
+.testimonial-quote{font-size:1.15rem;color:var(--navy);font-weight:500;line-height:1.65;margin-bottom:28px;}
+.testimonial-person{display:flex;align-items:center;justify-content:center;gap:12px;}
+.testimonial-person img{width:48px;height:48px;border-radius:50%;object-fit:cover;}
+.testimonial-person .name{font-weight:700;color:var(--navy);font-size:.95rem;}
+.testimonial-person .role{font-size:.82rem;color:var(--ink-soft);}
+
+/* ============ FOOTER ============ */
+footer{background:var(--navy-900);color:#c7d3dc;padding:64px 0 28px;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1);}
+.footer-brand .logo{color:#fff;}
+.footer-brand .logo span{color:var(--accent);}
+.footer-brand p{margin-top:12px;color:#8fa2b3;font-size:.9rem;max-width:280px;}
+.footer-links{display:flex;gap:32px;flex-wrap:wrap;}
+.footer-links a{font-size:.9rem;font-weight:600;color:#c7d3dc;transition:color .2s ease;}
+.footer-links a:hover{color:var(--accent);}
+.footer-social{display:flex;gap:12px;}
+.footer-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s ease;}
+.footer-social a:hover{background:var(--accent);}
+.footer-social .icon{width:17px;height:17px;}
+.footer-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7c90a2;}
+
+/* ============ MODAL / WIZARD ============ */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,32,48,.55);backdrop-filter:blur(3px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--r-lg);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);position:relative;animation:modalIn .3s ease;}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-close{position:absolute;top:20px;right:20px;width:38px;height:38px;border-radius:50%;border:none;background:var(--surface);color:var(--navy);display:flex;align-items:center;justify-content:center;z-index:2;}
+.modal-close:hover{background:var(--line);}
+.modal-body{padding:40px 40px 32px;}
+.stepper{display:flex;align-items:center;margin-bottom:32px;}
+.step-dot{width:34px;height:34px;border-radius:50%;background:var(--surface);color:var(--ink-faint);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;border:2px solid transparent;transition:all .3s ease;}
+.step-dot.active{background:var(--accent);color:#fff;}
+.step-dot.done{background:var(--navy);color:#fff;}
+.step-line{flex:1;height:3px;background:var(--surface);margin:0 4px;border-radius:2px;overflow:hidden;position:relative;}
+.step-line::after{content:"";position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--navy);transition:width .4s ease;}
+.step-line.filled::after{width:100%;}
+.step-labels{display:flex;justify-content:space-between;margin-top:8px;margin-bottom:26px;font-size:.72rem;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em;}
+.step-labels span.active{color:var(--navy);}
+
+.wizard-step{display:none;}
+.wizard-step.active{display:block;animation:stepIn .35s ease;}
+@keyframes stepIn{from{opacity:0;transform:translateX(12px);}to{opacity:1;transform:translateX(0);}}
+.wizard-step h3{font-size:1.35rem;margin-bottom:6px;}
+.wizard-step .step-sub{color:var(--ink-soft);font-size:.9rem;margin-bottom:26px;}
+
+.form-group{margin-bottom:20px;}
+.form-group label{display:block;font-weight:700;font-size:.85rem;color:var(--navy);margin-bottom:7px;}
+.form-control{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;transition:border-color .2s ease;background:var(--white);}
+.form-control:focus{outline:none;border-color:var(--navy);}
+.form-control.invalid{border-color:var(--error);}
+.field-error{display:none;color:var(--error);font-size:.8rem;margin-top:6px;font-weight:600;}
+.field-error.show{display:block;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+.chip-group{display:flex;flex-wrap:wrap;gap:10px;}
+.chip{padding:10px 18px;border-radius:100px;border:1.5px solid var(--line);background:var(--white);color:var(--ink-soft);font-weight:600;font-size:.86rem;transition:all .18s ease;}
+.chip:hover{border-color:var(--navy);}
+.chip.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+.review-list{background:var(--surface);border-radius:var(--r-md);padding:18px 20px;margin-top:22px;display:flex;flex-direction:column;gap:12px;}
+.review-row{display:flex;justify-content:space-between;gap:16px;font-size:.88rem;padding-bottom:12px;border-bottom:1px solid var(--line);}
+.review-row:last-child{border-bottom:none;padding-bottom:0;}
+.review-row .r-label{color:var(--ink-soft);font-weight:600;}
+.review-row .r-value{color:var(--navy);font-weight:700;text-align:right;max-width:60%;}
+
+.wizard-footer{display:flex;justify-content:space-between;align-items:center;margin-top:30px;}
+.wizard-footer .spacer{flex:1;}
+
+.success-state{text-align:center;padding:20px 0 10px;}
+.success-icon{width:76px;height:76px;border-radius:50%;background:#eaf6ef;color:#3f9d63;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;}
+.success-icon .icon{width:36px;height:36px;stroke-width:2.4;}
+.success-state h3{margin-bottom:10px;}
+.success-state p{color:var(--ink-soft);margin-bottom:28px;font-size:.94rem;}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .hero-grid{gap:40px;}
+  .budget-grid{gap:44px;}
+}
+@media (max-width:960px){
+  .container{padding:0 24px;}
+  .nav-links,.nav-actions.desktop-only{display:none;}
+  .hamburger{display:flex;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{order:-1;max-width:420px;margin:0 auto;}
+  .hero-features{grid-template-columns:1fr 1fr;}
+  .budget-grid{grid-template-columns:1fr;}
+  .budget-visual{max-width:460px;}
+  .search-bar{grid-template-columns:1fr 1fr;grid-template-areas:none;}
+  .search-bar .search-field{border-right:none;border-bottom:1px solid var(--line);}
+  .search-bar .btn{grid-column:1/-1;margin-top:6px;}
+}
+@media (max-width:768px){
+  .section{padding:64px 0;}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:36px 20px;}
+  .footer-top{flex-direction:column;}
+  .modal-body{padding:30px 24px 26px;}
+}
+@media (max-width:640px){
+  .container{padding:0 20px;}
+  .hero{padding-top:calc(var(--nav-h) + 40px);}
+  .hero-features{grid-template-columns:1fr 1fr;gap:14px 20px;}
+  .search-bar{grid-template-columns:1fr;padding:10px;}
+  .search-bar .search-field{border-bottom:1px solid var(--line);}
+  .dest-grid,.feature-grid{grid-template-columns:1fr !important;}
+  .section-head{flex-direction:column;align-items:flex-start;}
+  .form-row-2{grid-template-columns:1fr;}
+  .testimonial-card{padding:40px 26px;}
+  .float-card{left:10px;bottom:16px;padding:12px 16px;}
+  .map-deco{display:none;}
+  .donut-wrap{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ICON SPRITE ============ -->
+<svg style="display:none">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6"/><circle cx="17" cy="8.5" r="2.6"/><path d="M16 14.2c2.6.5 4.5 2.6 5 5.8"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" class="icon-fill"><path d="M12 2.5l2.9 6.4 6.9.7-5.2 4.7 1.5 6.9L12 17.8 5.9 21.2l1.5-6.9L2.2 9.6l6.9-.7L12 2.5z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-8-5-8-11.2A4.8 4.8 0 0 1 12 6.4a4.8 4.8 0 0 1 8 2.9c0 6.2-8 11.2-8 11.2z"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.3"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12.5V5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.4.6l7 7a2 2 0 0 1 0 2.8l-7.6 7.6a2 2 0 0 1-2.8 0l-7-7A2 2 0 0 1 3 12.5z"/><circle cx="8" cy="7.5" r="1.4"/></symbol>
+  <symbol id="i-pie" viewBox="0 0 24 24"><path d="M12 2.5v9.5h9.5A9.5 9.5 0 1 1 12 2.5z"/><path d="M15 2.9A9.5 9.5 0 0 1 21.1 9H15V2.9z"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 9.5a2.5 2.5 0 0 0 0 5V17a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2.5a2.5 2.5 0 0 1 0-5V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2.5z"/><path d="M10 5v14" stroke-dasharray="2.5 2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24" class="icon-fill"><path d="M14.5 21v-7.7h2.6l.4-3h-3V8.3c0-.9.2-1.5 1.5-1.5h1.6V4.2c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H9v3h2.4V21h3.1z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" class="icon-fill"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" class="icon-fill"><path d="M4 3.5h3.6l4.2 5.8 4.9-5.8h2.3l-6.1 7.2L20.3 20h-3.6l-4.6-6.3L6.7 20H4.4l6.5-7.7L4 3.5z"/></symbol>
+</svg>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="#top" class="logo">
+      <span class="logo-mark"><svg class="icon" style="width:19px;height:19px"><use href="#i-compass"/></svg></span>
+      Where we <span>Travel</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#top">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#features">Deals</a>
+      <a href="#" data-open-modal>Plan Trip</a>
+      <a href="#">Events</a>
+      <a href="#">Blog</a>
+    </nav>
+    <div class="nav-actions desktop-only">
+      <a href="#" class="btn btn-ghost">Sign In</a>
+      <a href="#" class="btn btn-primary">Sign Up</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <svg class="icon"><use href="#i-menu"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#top">Home</a>
+  <a href="#destinations">Destinations</a>
+  <a href="#features">Deals</a>
+  <a href="#" data-open-modal>Plan Trip</a>
+  <a href="#">Events</a>
+  <a href="#">Blog</a>
+  <div class="nav-actions">
+    <a href="#" class="btn btn-ghost">Sign In</a>
+    <a href="#" class="btn btn-primary">Sign Up</a>
+  </div>
+</div>
+
+<div id="top"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="badge">✦ Your Next Destination</span>
+        <h1><span class="line-navy">Plan Smarter.</span><span class="line-accent">Travel Better.</span></h1>
+        <p class="hero-lede">Where we Travel turns your ideas into a full itinerary — smart budget splits, matched destinations, and real deals on flights and hotels, all in one place.</p>
+        <div class="hero-features">
+          <div class="hero-feature"><span class="icon-circle"><svg class="icon" style="width:17px;height:17px"><use href="#i-pie"/></svg></span>Smart Planning</div>
+          <div class="hero-feature"><span class="icon-circle"><svg class="icon" style="width:17px;height:17px"><use href="#i-tag"/></svg></span>Best Deals</div>
+          <div class="hero-feature"><span class="icon-circle"><svg class="icon" style="width:17px;height:17px"><use href="#i-sparkle"/></svg></span>AI Powered</div>
+          <div class="hero-feature"><span class="icon-circle"><svg class="icon" style="width:17px;height:17px"><use href="#i-compass"/></svg></span>Tailored for You</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="frame">
+          <img src="https://images.unsplash.com/photo-1547141749-e5222f8b8646?auto=format&fit=crop&w=900&q=80" alt="White and blue coastal houses overlooking the sea in Oia, Santorini">
+        </div>
+        <div class="float-card">
+          <div class="stars"><svg class="icon"><use href="#i-star"/></svg></div>
+          <div><strong>4.9 Rated</strong><span>Trusted by 10K+ travelers</span></div>
+        </div>
+        <svg class="map-deco" viewBox="0 0 110 110" fill="none">
+          <path d="M8 70C30 40 55 55 70 30" stroke="#e8955f" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round"/>
+          <circle cx="8" cy="70" r="3" fill="#e8955f"/>
+          <path d="M70 12c-7 0-12 5.4-12 12.4C58 33 70 46 70 46s12-13 12-21.6C82 17.4 77 12 70 12z" fill="#e8955f"/>
+          <circle cx="70" cy="24" r="4" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="search-wrap reveal">
+      <div class="search-bar">
+        <div class="search-field">
+          <label for="searchDestination">Where to</label>
+          <div class="field-row"><svg class="icon"><use href="#i-pin"/></svg><input type="text" id="searchDestination" placeholder="Search destinations"></div>
+        </div>
+        <div class="search-field">
+          <label for="searchCheckin">Check-in</label>
+          <div class="field-row"><svg class="icon"><use href="#i-calendar"/></svg><input type="date" id="searchCheckin"></div>
+        </div>
+        <div class="search-field">
+          <label for="searchCheckout">Check-out</label>
+          <div class="field-row"><svg class="icon"><use href="#i-calendar"/></svg><input type="date" id="searchCheckout"></div>
+        </div>
+        <div class="search-field">
+          <label for="searchTravelers">Travelers</label>
+          <div class="field-row"><svg class="icon"><use href="#i-users"/></svg><input type="number" id="searchTravelers" min="1" value="2"></div>
+        </div>
+        <button class="btn btn-accent" id="exploreBtn">Explore <svg class="icon" style="width:17px;height:17px"><use href="#i-arrow-right"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POPULAR DESTINATIONS ============ -->
+<section class="section" id="destinations">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Handpicked for you</span>
+        <h2>Popular Destinations</h2>
+      </div>
+      <a href="#" class="view-all">View all destinations <svg class="icon"><use href="#i-arrow-right"/></svg></a>
+    </div>
+    <div class="dest-grid">
+
+      <article class="dest-card reveal">
+        <div class="dest-media">
+          <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80" alt="Sunset over the white houses of Santorini, Greece">
+          <span class="dest-rating"><svg class="icon"><use href="#i-star"/></svg>4.9</span>
+          <button class="save-btn" aria-label="Save Santorini, Greece" data-save><svg class="icon"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="dest-info">
+          <h3>Santorini</h3>
+          <p class="country">Greece</p>
+          <p class="dest-price">From <strong>$890</strong></p>
+        </div>
+      </article>
+
+      <article class="dest-card reveal reveal-delay-1">
+        <div class="dest-media">
+          <img src="https://images.unsplash.com/photo-1748626083682-611d0a66cb50?auto=format&fit=crop&w=600&q=80" alt="Burj Khalifa towering over the Dubai skyline">
+          <span class="dest-rating"><svg class="icon"><use href="#i-star"/></svg>4.7</span>
+          <button class="save-btn" aria-label="Save Dubai, UAE" data-save><svg class="icon"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="dest-info">
+          <h3>Dubai</h3>
+          <p class="country">UAE</p>
+          <p class="dest-price">From <strong>$650</strong></p>
+        </div>
+      </article>
+
+      <article class="dest-card reveal reveal-delay-2">
+        <div class="dest-media">
+          <img src="https://images.unsplash.com/photo-1557093793-d149a38a1be8?auto=format&fit=crop&w=600&q=80" alt="Green rice terraces in Ubud, Bali">
+          <span class="dest-rating"><svg class="icon"><use href="#i-star"/></svg>4.8</span>
+          <button class="save-btn" aria-label="Save Bali, Indonesia" data-save><svg class="icon"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="dest-info">
+          <h3>Bali</h3>
+          <p class="country">Indonesia</p>
+          <p class="dest-price">From <strong>$520</strong></p>
+        </div>
+      </article>
+
+      <article class="dest-card reveal reveal-delay-3">
+        <div class="dest-media">
+          <img src="https://images.unsplash.com/photo-1681311869080-8609bc510c29?auto=format&fit=crop&w=600&q=80" alt="The Eiffel Tower rising over the rooftops of Paris">
+          <span class="dest-rating"><svg class="icon"><use href="#i-star"/></svg>4.6</span>
+          <button class="save-btn" aria-label="Save Paris, France" data-save><svg class="icon"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="dest-info">
+          <h3>Paris</h3>
+          <p class="country">France</p>
+          <p class="dest-price">From <strong>$780</strong></p>
+        </div>
+      </article>
+
+      <article class="dest-card reveal reveal-delay-4">
+        <div class="dest-media">
+          <img src="https://images.unsplash.com/photo-1682319298536-33ac5b48d772?auto=format&fit=crop&w=600&q=80" alt="Aerial night view of Shibuya, Tokyo">
+          <span class="dest-rating"><svg class="icon"><use href="#i-star"/></svg>4.8</span>
+          <button class="save-btn" aria-label="Save Tokyo, Japan" data-save><svg class="icon"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="dest-info">
+          <h3>Tokyo</h3>
+          <p class="country">Japan</p>
+          <p class="dest-price">From <strong>$910</strong></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section alt" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Why travelers choose us</span>
+        <h2>Everything you need, in one place</h2>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-1"><svg class="icon"><use href="#i-ticket"/></svg></div>
+        <h3>Events & Festivals Guide</h3>
+        <p>Discover local festivals and events happening during your exact travel dates.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon fi-2"><svg class="icon"><use href="#i-tag"/></svg></div>
+        <h3>Best Flight & Hotel Deals</h3>
+        <p>We compare prices across airlines and hotels so you always get your best rate.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon fi-3"><svg class="icon"><use href="#i-pie"/></svg></div>
+        <h3>Smart Budget Planner</h3>
+        <p>Split your total budget across flights, stays, food, and more — automatically.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon fi-4"><svg class="icon"><use href="#i-sparkle"/></svg></div>
+        <h3>AI-Powered Planning</h3>
+        <p>Get a personalized itinerary in minutes, built around your interests.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-4">
+        <div class="feature-icon fi-5"><svg class="icon"><use href="#i-compass"/></svg></div>
+        <h3>Made for Smart Travelers</h3>
+        <p>Every recommendation is grounded in real pricing data, not guesswork.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUDGET PLANNER ============ -->
+<section class="section">
+  <div class="container">
+    <div class="budget-grid">
+      <div class="budget-text reveal">
+        <span class="eyebrow">Budget Intelligence</span>
+        <h2>Manage your entire trip budget intelligently</h2>
+        <p>Set one number for your whole trip and we'll split it across flights, stays, food, and activities — so you always know where your money is going, before you spend a cent.</p>
+        <div class="budget-actions">
+          <button class="btn btn-primary" data-open-modal>Plan Your Trip</button>
+          <button class="btn-text" id="howItWorksBtn" type="button">How it works?</button>
+        </div>
+        <div class="how-it-works" id="howItWorksPanel">
+          <ol>
+            <li>Share your destination and travel dates.</li>
+            <li>Tell us your total budget and interests.</li>
+            <li>Get a smart, editable budget breakdown instantly.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="budget-visual reveal reveal-delay-1">
+        <div class="chart-card">
+          <div class="chart-card-head">
+            <div class="amount">Total Trip Budget $2,850</div>
+            <div class="meta">7 days · 2 travelers</div>
+          </div>
+          <div class="donut-wrap" id="donutWrap">
+            <svg class="donut-svg" viewBox="0 0 160 160">
+              <circle class="donut-track" cx="80" cy="80" r="70" fill="none" stroke-width="20"/>
+              <g transform="rotate(-90 80 80)">
+                <circle data-pct="29" cx="80" cy="80" r="70" fill="none" stroke="#e8955f" stroke-width="20" stroke-dasharray="0 439.8" stroke-dashoffset="0" stroke-linecap="round"/>
+                <circle data-pct="20" cx="80" cy="80" r="70" fill="none" stroke="#0f3d5c" stroke-width="20" stroke-dasharray="0 439.8" stroke-dashoffset="-127.55" stroke-linecap="round"/>
+                <circle data-pct="14" cx="80" cy="80" r="70" fill="none" stroke="#4f8b8c" stroke-width="20" stroke-dasharray="0 439.8" stroke-dashoffset="-215.51" stroke-linecap="round"/>
+                <circle data-pct="12" cx="80" cy="80" r="70" fill="none" stroke="#c9a253" stroke-width="20" stroke-dasharray="0 439.8" stroke-dashoffset="-277.08" stroke-linecap="round"/>
+                <circle data-pct="9" cx="80" cy="80" r="70" fill="none" stroke="#a65d57" stroke-width="20" stroke-dasharray="0 439.8" stroke-dashoffset="-329.86" stroke-linecap="round"/>
+                <circle data-pct="4" cx="80" cy="80" r="70" fill="none" stroke="#c7cdd3" stroke-width="20" stroke-dasharray="0 439.8" stroke-dashoffset="-369.44" stroke-linecap="round"/>
+              </g>
+            </svg>
+            <div class="legend">
+              <div class="legend-row"><span class="legend-dot" style="background:#e8955f"></span><span class="label">Flights</span><span class="amt">$850</span><span class="pct">29%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:#0f3d5c"></span><span class="label">Accommodation</span><span class="amt">$590</span><span class="pct">20%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:#4f8b8c"></span><span class="label">Food & Dining</span><span class="amt">$400</span><span class="pct">14%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:#c9a253"></span><span class="label">Transportation</span><span class="amt">$350</span><span class="pct">12%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:#a65d57"></span><span class="label">Entertainment</span><span class="amt">$250</span><span class="pct">9%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:#c7cdd3"></span><span class="label">Others</span><span class="amt">$110</span><span class="pct">4%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal"><div class="stat-num" data-count="10" data-suffix="K+">0</div><div class="stat-label">Happy Travelers</div></div>
+      <div class="reveal reveal-delay-1"><div class="stat-num" data-count="150" data-suffix="+">0</div><div class="stat-label">Destinations</div></div>
+      <div class="reveal reveal-delay-2"><div class="stat-num" data-count="500" data-suffix="+">0</div><div class="stat-label">Events & Festivals</div></div>
+      <div class="reveal reveal-delay-3"><div class="stat-num" data-count="98" data-suffix="%">0</div><div class="stat-label">Satisfaction Rate</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TESTIMONIAL ============ -->
+<section class="section">
+  <div class="container">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">
+        <svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg>
+      </div>
+      <p class="testimonial-quote">"Planning our trip to Japan used to feel overwhelming. Where we Travel laid out a clear budget for every part of the trip and matched us with a route we'd never have found on our own. Booking felt effortless."</p>
+      <div class="testimonial-person">
+        <img src="https://images.unsplash.com/photo-1573496527892-904f897eb744?auto=format&fit=crop&w=120&q=80" alt="Portrait of Sarah Al-Mansoori">
+        <div style="text-align:left">
+          <div class="name">Sarah Al-Mansoori</div>
+          <div class="role">Traveled to Tokyo, Japan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <span class="logo-mark"><svg class="icon" style="width:19px;height:19px"><use href="#i-compass"/></svg></span>
+          Where we <span>Travel</span>
+        </a>
+        <p>Plan smarter. Travel better. Your AI-powered companion for every trip.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">FAQ</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><svg class="icon"><use href="#i-fb"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg class="icon"><use href="#i-ig"/></svg></a>
+        <a href="#" aria-label="X (Twitter)"><svg class="icon"><use href="#i-x"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Where we Travel. All rights reserved.</span>
+      <span>Made for travelers who plan ahead.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ PLAN TRIP MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+    <div class="modal-body">
+
+      <div id="wizardWrap">
+        <div class="stepper">
+          <div class="step-dot active" id="dot1">1</div>
+          <div class="step-line" id="line1"></div>
+          <div class="step-dot" id="dot2">2</div>
+          <div class="step-line" id="line2"></div>
+          <div class="step-dot" id="dot3">3</div>
+        </div>
+        <div class="step-labels">
+          <span class="active" id="lab1">Trip</span>
+          <span id="lab2">Budget</span>
+          <span id="lab3">Review</span>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="wizard-step active" data-step="1">
+          <h3 id="modalTitle">Where and when?</h3>
+          <p class="step-sub">Tell us the basics of your trip.</p>
+          <div class="form-group">
+            <label for="tripDestination">Destination</label>
+            <input type="text" class="form-control" id="tripDestination" placeholder="e.g. Santorini, Greece">
+            <span class="field-error" id="err-tripDestination">Please enter your destination.</span>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="tripStart">Start date</label>
+              <input type="date" class="form-control" id="tripStart">
+              <span class="field-error" id="err-tripStart">Please choose your travel dates.</span>
+            </div>
+            <div class="form-group">
+              <label for="tripEnd">End date</label>
+              <input type="date" class="form-control" id="tripEnd">
+              <span class="field-error" id="err-tripEnd">Check-out must be after check-in.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="tripTravelers">Travelers</label>
+            <input type="number" class="form-control" id="tripTravelers" min="1" value="2">
+            <span class="field-error" id="err-tripTravelers">Add at least 1 traveler.</span>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="wizard-step" data-step="2">
+          <h3>Set your budget</h3>
+          <p class="step-sub">We'll split this smartly across your whole trip.</p>
+          <div class="form-group">
+            <label for="tripBudget">Total budget (USD)</label>
+            <input type="number" class="form-control" id="tripBudget" min="1" placeholder="e.g. 2500">
+            <span class="field-error" id="err-tripBudget">Please enter your total budget.</span>
+          </div>
+          <div class="form-group">
+            <label>Interests</label>
+            <div class="chip-group" id="interestChips">
+              <button type="button" class="chip" data-chip>Beaches</button>
+              <button type="button" class="chip" data-chip>Food & Dining</button>
+              <button type="button" class="chip" data-chip>Hiking</button>
+              <button type="button" class="chip" data-chip>Museums</button>
+              <button type="button" class="chip" data-chip>Nightlife</button>
+              <button type="button" class="chip" data-chip>Shopping</button>
+              <button type="button" class="chip" data-chip>Adventure</button>
+              <button type="button" class="chip" data-chip>Nature</button>
+            </div>
+            <span class="field-error" id="err-tripInterests">Pick at least one interest.</span>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="wizard-step" data-step="3">
+          <h3>Review and confirm</h3>
+          <p class="step-sub">We'll send your plan to this email.</p>
+          <div class="form-group">
+            <label for="tripEmail">Email address</label>
+            <input type="email" class="form-control" id="tripEmail" placeholder="you@example.com">
+            <span class="field-error" id="err-tripEmail">Enter a valid email address.</span>
+          </div>
+          <div class="review-list" id="reviewList"></div>
+        </div>
+
+        <div class="wizard-footer">
+          <button class="btn btn-ghost" id="backBtn" type="button" style="visibility:hidden">Back</button>
+          <span class="spacer"></span>
+          <button class="btn btn-accent" id="nextBtn" type="button">Next <svg class="icon" style="width:16px;height:16px"><use href="#i-arrow-right"/></svg></button>
+        </div>
+      </div>
+
+      <div class="success-state" id="successState" style="display:none">
+        <div class="success-icon"><svg class="icon"><use href="#i-check"/></svg></div>
+        <h3>Trip request received!</h3>
+        <p id="successMsg">We've saved your plan and will send full details shortly.</p>
+        <button class="btn btn-primary btn-block" id="doneBtn" type="button">Done</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Navbar scroll shadow ---------- */
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function(){
+    navbar.classList.toggle('scrolled', window.scrollY > 8);
+  });
+
+  /* ---------- Mobile menu ---------- */
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', function(){
+    var open = mobileMenu.classList.toggle('open');
+    hamburgerBtn.setAttribute('aria-expanded', open);
+    hamburgerBtn.innerHTML = open ? '<svg class="icon"><use href="#i-close"/></svg>' : '<svg class="icon"><use href="#i-menu"/></svg>';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', false);
+      hamburgerBtn.innerHTML = '<svg class="icon"><use href="#i-menu"/></svg>';
+    });
+  });
+
+  /* ---------- Reveal on scroll ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  } else if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  /* ---------- Save (heart) buttons ---------- */
+  document.querySelectorAll('[data-save]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btn.classList.toggle('saved');
+    });
+  });
+
+  /* ---------- Donut chart draw-in ---------- */
+  var donutWrap = document.getElementById('donutWrap');
+  function drawDonut(){
+    donutWrap.querySelectorAll('circle[data-pct]').forEach(function(c, i){
+      setTimeout(function(){
+        var pct = parseFloat(c.getAttribute('data-pct'));
+        var len = (pct/100) * 439.8;
+        c.style.strokeDasharray = len.toFixed(2) + ' 439.8';
+      }, reduceMotion ? 0 : i * 110);
+    });
+  }
+  if(donutWrap){
+    if(reduceMotion || !('IntersectionObserver' in window)){
+      drawDonut();
+    } else {
+      var donutIO = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ drawDonut(); donutIO.unobserve(entry.target); }
+        });
+      }, {threshold:.4});
+      donutIO.observe(donutWrap);
+    }
+  }
+
+  /* ---------- Stat count-up ---------- */
+  document.querySelectorAll('.stat-num').forEach(function(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    function animate(){
+      if(reduceMotion){ el.textContent = target + suffix; return; }
+      var start = null, duration = 1400;
+      function step(ts){
+        if(!start) start = ts;
+        var progress = Math.min((ts-start)/duration, 1);
+        var val = Math.floor(progress * target);
+        el.textContent = val + suffix;
+        if(progress < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+    if('IntersectionObserver' in window){
+      var statIO = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ animate(); statIO.unobserve(entry.target); }
+        });
+      }, {threshold:.5});
+      statIO.observe(el);
+    } else { animate(); }
+  });
+
+  /* ---------- How it works toggle ---------- */
+  var hiwBtn = document.getElementById('howItWorksBtn');
+  var hiwPanel = document.getElementById('howItWorksPanel');
+  hiwBtn.addEventListener('click', function(){
+    var open = hiwPanel.classList.toggle('open');
+    hiwBtn.textContent = open ? 'Hide details' : 'How it works?';
+  });
+
+  /* ================= TRIP PLANNER WIZARD ================= */
+  var overlay = document.getElementById('modalOverlay');
+  var wizardWrap = document.getElementById('wizardWrap');
+  var successState = document.getElementById('successState');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.wizard-step'));
+  var dots = [document.getElementById('dot1'), document.getElementById('dot2'), document.getElementById('dot3')];
+  var lines = [document.getElementById('line1'), document.getElementById('line2')];
+  var labels = [document.getElementById('lab1'), document.getElementById('lab2'), document.getElementById('lab3')];
+  var backBtn = document.getElementById('backBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var currentStep = 1;
+  var lastFocused = null;
+  var chips = document.querySelectorAll('#interestChips .chip');
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){ chip.classList.toggle('active'); });
+  });
+
+  function openModal(){
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    var firstInput = document.getElementById('tripDestination');
+    setTimeout(function(){ firstInput.focus(); }, 50);
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocused) lastFocused.focus();
+  }
+  document.querySelectorAll('[data-open-modal]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal();
+    });
+  });
+  document.getElementById('exploreBtn').addEventListener('click', function(){
+    document.getElementById('tripDestination').value = document.getElementById('searchDestination').value;
+    document.getElementById('tripStart').value = document.getElementById('searchCheckin').value;
+    document.getElementById('tripEnd').value = document.getElementById('searchCheckout').value;
+    document.getElementById('tripTravelers').value = document.getElementById('searchTravelers').value || 2;
+    openModal();
+  });
+  document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+  function showError(id, show){
+    var input = document.getElementById(id);
+    var err = document.getElementById('err-' + id);
+    if(input) input.classList.toggle('invalid', show);
+    if(err) err.classList.toggle('show', show);
+  }
+
+  function validateStep(step){
+    var valid = true;
+    if(step === 1){
+      var dest = document.getElementById('tripDestination').value.trim();
+      var start = document.getElementById('tripStart').value;
+      var end = document.getElementById('tripEnd').value;
+      var travelers = parseInt(document.getElementById('tripTravelers').value, 10);
+
+      showError('tripDestination', !dest); if(!dest) valid = false;
+      showError('tripStart', !start); if(!start) valid = false;
+
+      var endInvalid = !end || (start && end && new Date(end) <= new Date(start));
+      showError('tripEnd', !!endInvalid); if(endInvalid) valid = false;
+
+      var travelersInvalid = !travelers || travelers < 1;
+      showError('tripTravelers', travelersInvalid); if(travelersInvalid) valid = false;
+    }
+    if(step === 2){
+      var budget = parseFloat(document.getElementById('tripBudget').value);
+      var budgetInvalid = !budget || budget <= 0;
+      showError('tripBudget', budgetInvalid); if(budgetInvalid) valid = false;
+
+      var anyChip = document.querySelectorAll('#interestChips .chip.active').length > 0;
+      showError('tripInterests', !anyChip); if(!anyChip) valid = false;
+    }
+    if(step === 3){
+      var email = document.getElementById('tripEmail').value.trim();
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      showError('tripEmail', !emailOk); if(!emailOk) valid = false;
+    }
+    return valid;
+  }
+
+  function goToStep(step){
+    currentStep = step;
+    steps.forEach(function(s){ s.classList.toggle('active', parseInt(s.getAttribute('data-step'),10) === step); });
+    dots.forEach(function(dot, i){
+      var n = i + 1;
+      dot.classList.remove('active','done');
+      if(n < step){ dot.classList.add('done'); dot.innerHTML = '<svg class="icon" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>'; }
+      else if(n === step){ dot.classList.add('active'); dot.textContent = n; }
+      else { dot.textContent = n; }
+    });
+    lines.forEach(function(line, i){ line.classList.toggle('filled', (i+1) < step); });
+    labels.forEach(function(lab, i){ lab.classList.toggle('active', (i+1) === step); });
+
+    backBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+    nextBtn.innerHTML = step === 3
+      ? 'Submit Trip Plan <svg class="icon" style="width:16px;height:16px"><use href="#i-check"/></svg>'
+      : 'Next <svg class="icon" style="width:16px;height:16px"><use href="#i-arrow-right"/></svg>';
+
+    if(step === 3) buildReview();
+  }
+
+  function buildReview(){
+    var interests = Array.prototype.slice.call(document.querySelectorAll('#interestChips .chip.active')).map(function(c){ return c.textContent; }).join(', ');
+    var rows = [
+      ['Destination', document.getElementById('tripDestination').value || '—'],
+      ['Dates', (document.getElementById('tripStart').value || '—') + ' → ' + (document.getElementById('tripEnd').value || '—')],
+      ['Travelers', document.getElementById('tripTravelers').value || '—'],
+      ['Budget', '$' + (document.getElementById('tripBudget').value || '0')],
+      ['Interests', interests || '—']
+    ];
+    document.getElementById('reviewList').innerHTML = rows.map(function(r){
+      return '<div class="review-row"><span class="r-label">'+r[0]+'</span><span class="r-value">'+r[1]+'</span></div>';
+    }).join('');
+  }
+
+  backBtn.addEventListener('click', function(){ if(currentStep > 1) goToStep(currentStep - 1); });
+  nextBtn.addEventListener('click', function(){
+    if(!validateStep(currentStep)) return;
+    if(currentStep < 3){ goToStep(currentStep + 1); }
+    else { submitWizard(); }
+  });
+
+  function submitWizard(){
+    var email = document.getElementById('tripEmail').value.trim();
+    wizardWrap.style.display = 'none';
+    successState.style.display = 'block';
+    document.getElementById('successMsg').textContent = "We've saved your plan and will send full details to " + email + " shortly.";
+  }
+
+  document.getElementById('doneBtn').addEventListener('click', function(){
+    closeModal();
+    setTimeout(resetWizard, 300);
+  });
+
+  function resetWizard(){
+    document.getElementById('tripDestination').value = '';
+    document.getElementById('tripStart').value = '';
+    document.getElementById('tripEnd').value = '';
+    document.getElementById('tripTravelers').value = 2;
+    document.getElementById('tripBudget').value = '';
+    document.getElementById('tripEmail').value = '';
+    chips.forEach(function(c){ c.classList.remove('active'); });
+    ['tripDestination','tripStart','tripEnd','tripTravelers','tripBudget','tripInterests','tripEmail'].forEach(function(id){ showError(id, false); });
+    wizardWrap.style.display = 'block';
+    successState.style.display = 'none';
+    goToStep(1);
+  }
+
+})();
+</script>
+</body>
+</html>

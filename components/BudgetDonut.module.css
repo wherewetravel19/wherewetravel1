@@ -1,0 +1,75 @@
+.card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  border: 1px solid var(--border);
+  box-shadow: 0 25px 60px -20px rgba(15, 61, 92, 0.2);
+}
+
+.head {
+  margin-bottom: 24px;
+}
+.head h4 {
+  font-size: 1.3rem;
+  color: var(--navy);
+  font-weight: 800;
+}
+.head span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.donutWrap {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.svg {
+  flex-shrink: 0;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.88rem;
+}
+.legendLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.label {
+  font-weight: 600;
+  color: var(--text);
+}
+.value {
+  color: var(--muted);
+}
+.pct {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+@media (max-width: 560px) {
+  .donutWrap {
+    flex-direction: column;
+  }
+}

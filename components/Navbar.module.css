@@ -1,0 +1,138 @@
+/* استبدل محتوى: components/Navbar.module.css بهذا الملف بالكامل */
+/* أضاف: تنسيق شعار الصورة (logoImg) بجانب النص */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.logoImg {
+  border-radius: 8px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.logoText {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+.logoAccent {
+  color: var(--accent);
+}
+
+.navLinks {
+  display: flex;
+  gap: 34px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.navLinks a {
+  transition: 0.2s;
+  padding: 6px 0;
+}
+.navLinks a:hover {
+  color: var(--accent-dark);
+}
+.navLinks a.active {
+  color: var(--navy);
+  border-bottom: 2px solid var(--accent);
+}
+
+.navActions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.signIn {
+  background: transparent;
+  color: var(--navy);
+  padding: 10px 22px;
+  border-radius: 50px;
+  border: 1.5px solid var(--navy);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.signIn:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.signUp {
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+.signUp:hover {
+  background: var(--navy-dark);
+}
+
+.menuToggle {
+  display: none;
+  font-size: 1.6rem;
+  color: var(--navy);
+}
+
+@media (max-width: 900px) {
+  .navLinks {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 18px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  }
+  .navLinks.open {
+    display: flex;
+  }
+  .menuToggle {
+    display: block;
+  }
+  .signIn {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .signUp {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+  .logoText {
+    font-size: 1.1rem;
+  }
+  .logoImg {
+    width: 32px;
+    height: 32px;
+  }
+}

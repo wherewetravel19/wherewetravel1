@@ -1,0 +1,178 @@
+/* استبدل محتوى: app/globals.css بهذا الملف بالكامل */
+/* الألوان الآن معتمدة رسميًا على شعار Where we Travel */
+
+:root {
+  --navy: #103d5c;        /* أزرق الكرة الأرضية والبوصلة في الشعار */
+  --navy-dark: #0a2c42;
+  --accent: #d97f4f;      /* برتقالي دبوس الموقع في الشعار */
+  --accent-dark: #c06a3d;
+  --bg: #ffffff;
+  --bg-cream: #fdf8f0;    /* الخلفية الكريمية من الشعار — استخدمها في أقسام مختارة */
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --card-bg: #f8fafb;
+  --border: #e7ecef;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-head h2 {
+  font-size: 2.2rem;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.view-all {
+  color: var(--accent-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.view-all:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: 0.25s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--navy-dark);
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: 0.25s;
+  display: inline-block;
+}
+.btn-accent:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  padding: 12px 26px;
+  border-radius: 50px;
+  border: 1.5px solid var(--navy);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: 0.25s;
+}
+.btn-outline:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.page-hero {
+  padding: 70px 0 60px;
+  background: linear-gradient(180deg, var(--bg-cream) 0%, #fff 100%);
+  text-align: center;
+}
+.page-hero h1 {
+  font-size: 2.6rem;
+  color: var(--navy);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.page-hero p {
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fdf1e8;
+  color: var(--accent-dark);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 70px 0;
+  }
+}
+@media (max-width: 560px) {
+  .section {
+    padding: 56px 0;
+  }
+  .page-hero h1 {
+    font-size: 2rem;
+  }
+}
